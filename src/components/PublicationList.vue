@@ -1,10 +1,10 @@
 <template>
   <div class="container">
     <h1>Publications</h1>
-    <a-card class="publication" v-for="item in getPublications" :key="item.text">
+    <a-card class="publication" v-for="item in name" :key="item.id">
       {{ item.text }}
       <div v-if="item.deadline">
-        <div v-if="item.deadline.slice(0, 4) == 4000">
+        <div v-if="item.deadline.slice(0, 4) === 4000">
           deadline didn't settled
         </div>
         <div v-else>
@@ -17,25 +17,27 @@
 
 <script>
 
-import Vue from 'vue';
+import { mapGetters } from 'vuex';
+import { GET_PUBLICATIONS } from '@/store/action-types';
 import store from '../store/index';
 import 'ant-design-vue/dist/antd.css';
 
-export default Vue.extend({
+export default {
   name: 'publicationList',
   store,
-  props: {
-    message: String,
-  },
-  mounted() {
-    store.commit('getData');
-  },
   computed: {
-    getPublications() {
-      return this.$store.state.publications;
+    ...mapGetters([
+      'publications',
+    ]),
+    name() {
+      console.log(this.publications);
+      return this.publications;
     },
   },
-});
+  mounted() {
+    this.$store.dispatch(GET_PUBLICATIONS);
+  },
+};
 </script>
 
 <style>
