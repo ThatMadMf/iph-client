@@ -3,6 +3,7 @@
     <h1>Publications</h1>
     <a-card class="publication" v-for="item in name" :key="item.id">
       {{ item.text }}
+      {{ item.subject.title }}
       <div v-if="item.deadline">
         <div v-if="item.deadline.slice(0, 4) === 4000">
           deadline didn't settled
@@ -36,8 +37,9 @@ export default {
   mounted() {
     if (this.$route.params.filter === 'student') {
       this.$store.dispatch(GET_STUDENT_PUBLICATIONS, this.$route.params.id);
+    } else {
+      this.$store.dispatch(GET_PUBLICATIONS);
     }
-    this.$store.dispatch(GET_PUBLICATIONS);
   },
 };
 </script>
