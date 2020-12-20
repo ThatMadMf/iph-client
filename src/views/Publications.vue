@@ -1,6 +1,6 @@
 <template>
   <div class="Publications">
-    <PublicationList message="Some text" />
+    <PublicationList />
   </div>
 </template>
 

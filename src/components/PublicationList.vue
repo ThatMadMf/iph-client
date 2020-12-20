@@ -18,7 +18,7 @@
 <script>
 
 import { mapGetters } from 'vuex';
-import { GET_PUBLICATIONS } from '@/store/action-types';
+import { GET_PUBLICATIONS, GET_STUDENT_PUBLICATIONS } from '@/store/action-types';
 import store from '../store/index';
 import 'ant-design-vue/dist/antd.css';
 
@@ -30,11 +30,13 @@ export default {
       'publications',
     ]),
     name() {
-      console.log(this.publications);
       return this.publications;
     },
   },
   mounted() {
+    if (this.$route.params.filter === 'student') {
+      this.$store.dispatch(GET_STUDENT_PUBLICATIONS, this.$route.params.id);
+    }
     this.$store.dispatch(GET_PUBLICATIONS);
   },
 };

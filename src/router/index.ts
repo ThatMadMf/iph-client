@@ -23,6 +23,11 @@ const routes: Array<RouteConfig> = [
     name: 'Publications',
     component: () => import('../views/Publications.vue'),
   },
+  {
+    path: '/publications/:filter/:id',
+    name: 'StudentPublications',
+    component: () => import('../views/Publications.vue'),
+  },
 ];
 
 const router = new VueRouter({

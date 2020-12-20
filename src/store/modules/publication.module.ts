@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_PUBLICATIONS } from '@/store/action-types';
+import { GET_PUBLICATIONS, GET_STUDENT_PUBLICATIONS } from '@/store/action-types';
 import { SET_PUBLICATIONS } from '@/store/mutation-types';
 
 interface State {
@@ -20,6 +20,13 @@ const actions = {
   async [GET_PUBLICATIONS](context: any) {
     axios
       .get('http://localhost:5000/api/publications')
+      .then((response) => {
+        context.commit(SET_PUBLICATIONS, response.data);
+      });
+  },
+  async [GET_STUDENT_PUBLICATIONS](context: any, id: bigint) {
+    axios
+      .get(`http://localhost:5000/api/publications/student/${id}`)
       .then((response) => {
         context.commit(SET_PUBLICATIONS, response.data);
       });
