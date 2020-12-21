@@ -13,6 +13,20 @@
           </h3>
           {{ item.text }}
           <div v-if="item.deadline">
+            <a-upload
+              :multiple="true"
+              :before-upload="beforeUpload"
+            >
+              <a-button>
+                <a-icon type="upload" /> Select File
+              </a-button>
+            </a-upload>
+            <a-button
+              type="primary"
+              style="margin-top: 16px"
+              @click="handleUpload">
+              <a-icon type="upload" /> Upload
+            </a-button>
             <div class="deadline" v-if="item.deadline.slice(0, 4) === '4000'">
               deadline didn't settled
             </div>
@@ -62,7 +76,9 @@
 <script>
 
 import { mapGetters } from 'vuex';
-import { GET_PUBLICATIONS, GET_STUDENT_PUBLICATIONS, SWAP_CALENDAR_STATE } from '@/store/action-types';
+import {
+  GET_PUBLICATIONS, GET_STUDENT_PUBLICATIONS, POST_SUBMISSION, SWAP_CALENDAR_STATE, UPLOAD_FILE,
+} from '@/store/action-types';
 import store from '../store/index';
 import 'ant-design-vue/dist/antd.css';
 
@@ -73,6 +89,7 @@ export default {
     ...mapGetters([
       'publications',
       'visible',
+      'uploadFile',
     ]),
     pubs() {
       return this.publications;
@@ -90,6 +107,13 @@ export default {
     },
     current(pubs, subject) {
       return pubs.filter((pub) => pub.subject.title === subject);
+    },
+    handleUpload() {
+      this.$store.dispatch(POST_SUBMISSION, this.uploadFile);
+    },
+    beforeUpload(file) {
+      this.$store.dispatch(UPLOAD_FILE, file);
+      console.log(file);
     },
     getListData(value) {
       let listData;
@@ -132,7 +156,7 @@ export default {
   }
 
   .deadline {
-    float: right;
+   margin-left: 70%;
   }
 
   .author {
