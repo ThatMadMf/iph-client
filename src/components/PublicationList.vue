@@ -24,7 +24,7 @@
             <a-button
               type="primary"
               style="margin-top: 16px"
-              @click="handleUpload">
+              @click="handleUpload(item)">
               <a-icon type="upload" /> Upload
             </a-button>
             <div class="deadline" v-if="item.deadline.slice(0, 4) === '4000'">
@@ -108,12 +108,13 @@ export default {
     current(pubs, subject) {
       return pubs.filter((pub) => pub.subject.title === subject);
     },
-    handleUpload() {
-      this.$store.dispatch(POST_SUBMISSION, this.uploadFile);
+    handleUpload(work) {
+      const studentId = this.$route.params.id;
+      console.log(studentId);
+      this.$store.dispatch(POST_SUBMISSION, work.id, studentId);
     },
     beforeUpload(file) {
       this.$store.dispatch(UPLOAD_FILE, file);
-      console.log(file);
     },
     getListData(value) {
       let listData;

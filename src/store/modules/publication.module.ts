@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   GET_PUBLICATIONS,
   GET_STUDENT_PUBLICATIONS, POST_SUBMISSION,
@@ -50,15 +49,15 @@ const actions = {
   async [UPLOAD_FILE](context: any, file: any) {
     context.commit(SAVE_FILE, file);
   },
-  async [POST_SUBMISSION](context: any, file: any) {
-    console.log('post submission');
-    console.log(context.state.uploadFile);
-    console.log(file);
+  async [POST_SUBMISSION](context: any, workId: any, student: any) {
+    console.log(student);
     const XHR = new XMLHttpRequest();
     const FD = new FormData();
-    FD.append('file', file);
-    FD.append('model', 'modelName');
-    XHR.open('POST', 'http://localhost:5000/api/submissions/test');
+    FD.append('file', context.state.uploadFile);
+    FD.append('workId', workId.toString());
+    FD.append('studentId', '5');
+    FD.append('content', 'New submission');
+    XHR.open('POST', 'http://localhost:5000/api/submissions/submitPermission');
     XHR.send(FD);
   },
 };
