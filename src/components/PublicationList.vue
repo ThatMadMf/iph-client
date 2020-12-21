@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <h1>Publications</h1>
-    <a-card class="publication" v-for="item in name" :key="item.id">
+
+    <a-card class="publication" v-for="item in pubs" :key="item.id">
+
       {{ item.text }}
       {{ item.subject.title }}
       <div v-if="item.deadline">
@@ -12,6 +14,7 @@
           Due to: {{ item.deadline.slice(0, 10) }}
         </div>
       </div>
+      posted {{item.creation_date}} by {{item.author.name}}
     </a-card>
   </div>
 </template>
@@ -24,13 +27,13 @@ import store from '../store/index';
 import 'ant-design-vue/dist/antd.css';
 
 export default {
-  name: 'publicationList',
+  pubs: 'publicationList',
   store,
   computed: {
     ...mapGetters([
       'publications',
     ]),
-    name() {
+    pubs() {
       return this.publications;
     },
   },

@@ -11,6 +11,9 @@ const store: State = {
 };
 
 const getters = {
+  subjects(state: State) {
+    return state.publications;
+  },
   publications(state: State) {
     return state.publications;
   },
