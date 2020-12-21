@@ -1,2 +1,2 @@
 export const SET_PUBLICATIONS = 'SET_PUBLICATIONS';
-export const POST = 'POST';
+export const SET_CALENDAR_STATE = 'SET_CALENDAR_STATE';
